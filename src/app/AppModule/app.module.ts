@@ -10,6 +10,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './Services/Data/DataService';
 import { DataSetFactory } from './Factories/DataSetFactory';
 import { SelectDataset } from './Components/SelectDataSet/select.dataset.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AlgorithmConfigComponent } from './Components/AlgorithmControl/algorithm.config.component';
+import { AlgorithmFactory } from './Factories/AlgorithmFactory';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -23,16 +26,19 @@ const routes: Routes = [
     HomeComponent,
     DetailsComponent,
     NavigationComponent,
-    SelectDataset
+    SelectDataset,
+    AlgorithmConfigComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
       DataService,
-      DataSetFactory
+      DataSetFactory,
+      AlgorithmFactory
   ],
   bootstrap: [AppComponent]
 })
