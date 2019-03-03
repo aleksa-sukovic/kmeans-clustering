@@ -9,6 +9,7 @@ import { NavigationComponent } from './Components/Navigation/navigation.componen
 import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './Services/Data/DataService';
 import { DataSetFactory } from './Factories/DataSetFactory';
+import { SelectDataset } from './Components/SelectDataSet/select.dataset.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -21,7 +22,8 @@ const routes: Routes = [
     AppComponent,
     HomeComponent,
     DetailsComponent,
-    NavigationComponent
+    NavigationComponent,
+    SelectDataset
   ],
   imports: [
     BrowserModule,
