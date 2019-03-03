@@ -18,7 +18,7 @@ export class AlgorithmConfigComponent
         this.availableDataSets = Constants.availableDataSets();
 
         this.controlForm = new FormGroup({
-            maxIterations: new FormControl(10),
+            maxIterations: new FormControl(5),
             clusterCount: new FormControl(2),
             dataSetLabel: new FormControl(this.availableDataSets[0].label)
         });

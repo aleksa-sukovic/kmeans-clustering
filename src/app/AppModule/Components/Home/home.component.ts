@@ -16,8 +16,6 @@ export class HomeComponent
     public onConfigurationSelected(configuration: any)
     {
         this.algorithmFactory.make(configuration).subscribe(algorithm => {
-            console.log(algorithm);
-
             this.algorithm = algorithm;
         });
     }
