@@ -1,8 +1,9 @@
 import { DataSet } from '../Models/DataSet';
+import { DataSetItem } from '../Models/DataSetItem';
 
 export class Parser
 {
-    parse(response: string): { headers: Array<string>, data: Array<Array<Number>> }
+    parse(response: string): { headers: Array<string>, data: Array<DataSetItem> }
     {
         return {
             headers: this.parseHeaders(response),
@@ -17,20 +18,20 @@ export class Parser
         return row.split(',');
     }
 
-    protected parseData(source: string): Array<Array<Number>>
+    protected parseData(source: string): Array<DataSetItem>
     {
         source = source.substr(source.indexOf('\n') + 1);
 
-        let result: Array<Array<Number>> = [];
+        let result: Array<DataSetItem> = [];
 
         source.split('\n').forEach(rowString => {
-            let row: Array<Number> = [];
+            let values: number[] = [];
 
             rowString.split(',').forEach(dataItem => {
-                row.push(parseFloat(dataItem))
+                values.push(parseFloat(dataItem));
             });
 
-            result.push(row);
+            result.push(new DataSetItem(values));
         });
 
         return result;

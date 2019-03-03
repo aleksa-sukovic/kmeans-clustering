@@ -1,9 +1,10 @@
 import { Parser } from '../Parsers/Parser';
+import { DataSetItem } from './DataSetItem';
 
 export class DataSet
 {
 
-    private data: Array<Array<Number>>;
+    private data: Array<DataSetItem>;
     private headers: Array<string>;
     private parser: Parser;
     private remoteUrl: string;
@@ -36,7 +37,7 @@ export class DataSet
         return this.headers;
     }
 
-    getData(): Array<Array<Number>>
+    getData(): Array<DataSetItem>
     {
         return this.data;
     }

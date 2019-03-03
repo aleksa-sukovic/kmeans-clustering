@@ -17,7 +17,7 @@
                     <tbody>
                         <tr *ngFor="let row of selected.getData(); let i = index">
                             <th scope="row">{{ i + 1 }}</th>
-                            <td *ngFor="let column of row">{{ column }}</td>
+                            <td *ngFor="let column of row.getValues()">{{ column }}</td>
                         </tr>
                     </tbody>
                 </table>
