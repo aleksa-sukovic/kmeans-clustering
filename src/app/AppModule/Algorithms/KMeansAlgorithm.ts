@@ -23,13 +23,11 @@ export class KMeansAlgorithm extends Algorithm
         const perCluster: number = Math.floor(sortedItems.length / this.clusterCount);
 
         for (let i = 0; i < this.clusterCount; i++) {
-            if (i == this.clusterCount - 1) {
-                this.clusters.push(new Cluster(sortedItems));
+            let itemsToAdd: DataSetItem[] = i == this.clusterCount - 1 ? sortedItems : sortedItems.splice(0, perCluster);
 
-                continue;
-            }
+            itemsToAdd.forEach(item => item.setClusterId(i));
 
-            this.clusters.push(new Cluster(sortedItems.splice(0, perCluster)));
+            this.clusters.push(new Cluster(itemsToAdd));
         }
 
         return this.clusters;
@@ -49,13 +47,20 @@ export class KMeansAlgorithm extends Algorithm
 
     protected iterate(): Cluster[]
     {
-        // Calculate new centroids for each cluster
         this.clusters.forEach(cluster => {
             cluster.recalculateCentroid();
             cluster.clearItems();
         });
 
-        // Reorder DataSetItems to appropriate clusters
+        this.reorderDataItems();
+
+        return this.clusters;
+    }
+
+    protected reorderDataItems(): void
+    {
+        let hasChanges = false;
+
         this.dataSet.getData().forEach(dataItem => {
             var clusterIndex = 0;
             var clusterIndexDistance = dataItem.distanceFromCluster(this.clusters[0]);
@@ -69,13 +74,18 @@ export class KMeansAlgorithm extends Algorithm
                 }
             }
 
+            if (clusterIndex != dataItem.getClusterId()) {
+                hasChanges = true;
+            }
+
+            dataItem.setClusterId(clusterIndex);
             this.clusters[clusterIndex].getItems().push(dataItem);
         });
 
-        return this.clusters;
+        this.complete = !hasChanges;
     }
 
-    protected maxIterations(): number
+    public maxIterations(): number
     {
         return this.iterations;
     }

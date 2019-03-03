@@ -8,7 +8,7 @@ export abstract class Algorithm
 
     protected abstract initialize(): Cluster[];
     protected abstract iterate(): Cluster[];
-    protected abstract maxIterations(): number;
+    public abstract maxIterations(): number;
     public abstract getClusters(): Cluster[];
 
     constructor()
