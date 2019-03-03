@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataService } from '../../Services/Data/DataService';
+import { AlgorithmFactory } from '../../Factories/AlgorithmFactory';
 
 @Component({
     selector: 'home',
@@ -8,12 +8,12 @@ import { DataService } from '../../Services/Data/DataService';
 })
 export class HomeComponent
 {
-    constructor(private dataService: DataService) {  }
+    constructor(private algorithmFactory: AlgorithmFactory) {  }
 
-    onDataSetSelected(label: string)
+    public onConfigurationSelected(configuration: any)
     {
-        this.dataService.getData(label).subscribe(dataSet => {
-            console.log(dataSet);
+        this.algorithmFactory.make(configuration).subscribe(algorithm => {
+            console.log(algorithm);
         });
     }
 }
