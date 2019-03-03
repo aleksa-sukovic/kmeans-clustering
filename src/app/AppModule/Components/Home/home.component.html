@@ -1,7 +1,7 @@
 <div class="container-fluid pt-3 text-center">
     <div class="row">
         <div class="col-sm-8 col-md-9">
-            <p class="lead text-center">Canvas</p>
+            <algorithm-display [algorithm]="algorithm" *ngIf="algorithm"></algorithm-display>
         </div>
         <div class="col-sm-4 col-md-3">
             <div class="algorithm-control">
@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="p-3">
-                    <algorithm-playback [algorithm]="algorithm"></algorithm-playback>
+                    <algorithm-playback [algorithm]="algorithm" (onNextIteration)="onNextIteration()"></algorithm-playback>
                 </div>
             </div>
         </div>

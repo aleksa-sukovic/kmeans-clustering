@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AlgorithmConfigComponent } from './Components/AlgorithmConfig/algorithm.config.component';
 import { AlgorithmFactory } from './Factories/AlgorithmFactory';
 import { AlgorithmPlaybackComponent } from './Components/AlgorithmPlayback/algorithm.playback.component';
+import { AlgorithmDisplayComponent } from './Components/AlgorithmDisplay/algorithm.display.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -29,7 +30,8 @@ const routes: Routes = [
     NavigationComponent,
     SelectDataset,
     AlgorithmConfigComponent,
-    AlgorithmPlaybackComponent
+    AlgorithmPlaybackComponent,
+    AlgorithmDisplayComponent
   ],
   imports: [
     BrowserModule,

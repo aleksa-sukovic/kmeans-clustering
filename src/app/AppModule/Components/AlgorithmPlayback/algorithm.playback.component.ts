@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Algorithm } from '../../Algorithms/Algorithm';
 
 @Component({
@@ -9,10 +9,13 @@ import { Algorithm } from '../../Algorithms/Algorithm';
 export class AlgorithmPlaybackComponent
 {
     @Input() algorithm: Algorithm;
+    @Output() onNextIteration = new EventEmitter();
 
     protected nextIteration()
     {
         this.algorithm.nextIteration();
+
+        this.onNextIteration.emit();
 
         console.log(this.algorithm.getClusters());
     }

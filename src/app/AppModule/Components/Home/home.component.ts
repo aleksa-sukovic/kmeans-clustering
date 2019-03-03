@@ -19,4 +19,9 @@ export class HomeComponent
             this.algorithm = algorithm;
         });
     }
+
+    public onNextIteration()
+    {
+        console.log('Refresh Canvas');
+    }
 }
