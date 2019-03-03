@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AlgorithmFactory } from '../../Factories/AlgorithmFactory';
 import { Algorithm } from '../../Algorithms/Algorithm';
+import { AlgorithmDisplayComponent } from '../AlgorithmDisplay/algorithm.display.component';
 
 @Component({
     selector: 'home',
@@ -10,6 +11,7 @@ import { Algorithm } from '../../Algorithms/Algorithm';
 export class HomeComponent
 {
     protected algorithm: Algorithm;
+    @ViewChild(AlgorithmDisplayComponent) protected algorithmDisplay: AlgorithmDisplayComponent;
 
     constructor(private algorithmFactory: AlgorithmFactory) {  }
 
@@ -22,6 +24,6 @@ export class HomeComponent
 
     public onNextIteration()
     {
-        console.log('Refresh Canvas');
+        this.algorithmDisplay.draw();
     }
 }

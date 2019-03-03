@@ -9,4 +9,9 @@ import { Algorithm } from '../../Algorithms/Algorithm';
 export class AlgorithmDisplayComponent
 {
     @Input() algorithm: Algorithm;
+
+    public draw(): void
+    {
+        console.log('Algorithm Display Draw Method');
+    }
 }
