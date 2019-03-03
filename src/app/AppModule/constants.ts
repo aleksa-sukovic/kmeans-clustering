@@ -1,10 +1,11 @@
 export class Constants
 {
-    static dataSetLabels(): { IRIS: string, WINE: string }
+    static dataSetLabels(): { IRIS: string, WINE: string, PLANE: string }
     {
         return {
             IRIS: 'iris',
-            WINE: 'wine'
+            WINE: 'wine',
+            PLANE: 'plane'
         };
     }
 
@@ -12,7 +13,8 @@ export class Constants
     {
         return [
             { name: 'Wine', label: Constants.dataSetLabels().WINE },
-            { name: 'Iris Flowers', label: Constants.dataSetLabels().IRIS }
+            { name: 'Iris Flowers', label: Constants.dataSetLabels().IRIS },
+            { name: 'Plane Dots', label: Constants.dataSetLabels().PLANE }
         ];
     }
 }
