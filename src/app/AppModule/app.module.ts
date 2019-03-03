@@ -13,6 +13,7 @@ import { SelectDataset } from './Components/SelectDataSet/select.dataset.compone
 import { ReactiveFormsModule } from '@angular/forms';
 import { AlgorithmConfigComponent } from './Components/AlgorithmConfig/algorithm.config.component';
 import { AlgorithmFactory } from './Factories/AlgorithmFactory';
+import { AlgorithmPlaybackComponent } from './Components/AlgorithmPlayback/algorithm.playback.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -27,7 +28,8 @@ const routes: Routes = [
     DetailsComponent,
     NavigationComponent,
     SelectDataset,
-    AlgorithmConfigComponent
+    AlgorithmConfigComponent,
+    AlgorithmPlaybackComponent
   ],
   imports: [
     BrowserModule,

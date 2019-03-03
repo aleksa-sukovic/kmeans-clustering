@@ -7,9 +7,21 @@
             <div class="algorithm-control">
                 <div class="form-banner">
                     <h2>Algorithm configuration</h2>
-                    <p>Here you can configure different  aspects of your algorithm</p>
+                    <p>Here you can configure different aspects of your algorithm</p>
                 </div>
-                <algorithm-config (configurationSelected)="onConfigurationSelected($event)"></algorithm-config>
+
+                <div class="mb-1 p-3">
+                    <algorithm-config (configurationSelected)="onConfigurationSelected($event)"></algorithm-config>
+                </div>
+
+                <div class="form-banner form-banner-borderless mb-0">
+                    <h2>Algorithm playback</h2>
+                    <p>Here you can control selected algorithm</p>
+                </div>
+
+                <div class="p-3">
+                    <algorithm-playback [algorithm]="algorithm"></algorithm-playback>
+                </div>
             </div>
         </div>
     </div>

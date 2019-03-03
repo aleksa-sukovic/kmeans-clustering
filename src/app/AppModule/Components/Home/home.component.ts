@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AlgorithmFactory } from '../../Factories/AlgorithmFactory';
+import { Algorithm } from '../../Algorithms/Algorithm';
 
 @Component({
     selector: 'home',
@@ -8,12 +9,16 @@ import { AlgorithmFactory } from '../../Factories/AlgorithmFactory';
 })
 export class HomeComponent
 {
+    protected algorithm: Algorithm;
+
     constructor(private algorithmFactory: AlgorithmFactory) {  }
 
     public onConfigurationSelected(configuration: any)
     {
         this.algorithmFactory.make(configuration).subscribe(algorithm => {
             console.log(algorithm);
+
+            this.algorithm = algorithm;
         });
     }
 }

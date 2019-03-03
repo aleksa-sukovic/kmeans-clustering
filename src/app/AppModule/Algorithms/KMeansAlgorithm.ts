@@ -80,4 +80,9 @@ export class KMeansAlgorithm extends Algorithm
         return this.iterations;
     }
 
+    public getClusters(): Cluster[]
+    {
+        return this.clusters;
+    }
+
 }
