@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DataService } from '../../Services/Data/DataService';
-import { Constants } from '../../constants';
+import { DataSet } from '../../Models/DataSet';
 
 @Component({
     selector: 'details-component',
@@ -9,12 +9,31 @@ import { Constants } from '../../constants';
 })
 export class DetailsComponent
 {
+    private selected: DataSet;
+    private semaphores: { loading: boolean }
+
     constructor(
         private dataService: DataService
     )
     {
-        this.dataService.getData(Constants.availableDataSets()[0].label).subscribe(data => {
-            console.log(data);
+        this.semaphores = {
+            loading: false
+        };
+    }
+
+     onDataSetSelected(value: string)
+     {
+         this.getDataSet(value);
+     }
+
+     private getDataSet(label: string): void
+     {
+        this.semaphores.loading = true;
+
+        this.dataService.getData(label).subscribe(dataSet => {
+            this.selected = dataSet;
+
+            this.semaphores.loading = false;
         });
      }
 }

@@ -10,14 +10,14 @@ export class Parser
         };
     }
 
-    private parseHeaders(source: string): Array<string>
+    protected parseHeaders(source: string): Array<string>
     {
         let row = source.substr(0, source.indexOf('\n'));
 
         return row.split(',');
     }
 
-    private parseData(source: string): Array<Array<Number>>
+    protected parseData(source: string): Array<Array<Number>>
     {
         source = source.substr(source.indexOf('\n') + 1);
 
