@@ -11,7 +11,7 @@ import { DataService } from './Services/Data/DataService';
 import { DataSetFactory } from './Factories/DataSetFactory';
 import { SelectDataset } from './Components/SelectDataSet/select.dataset.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AlgorithmConfigComponent } from './Components/AlgorithmControl/algorithm.config.component';
+import { AlgorithmConfigComponent } from './Components/AlgorithmConfig/algorithm.config.component';
 import { AlgorithmFactory } from './Factories/AlgorithmFactory';
 
 const routes: Routes = [
