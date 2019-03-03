@@ -2,22 +2,27 @@ import { Observable } from 'rxjs';
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { DataSetInfoFactory } from '../../Factories/DataSetInfoFactory';
+import { DataSet } from '../../Models/DataSet';
+import { DataSetFactory } from '../../Factories/DataSetFactory';
 
 @Injectable()
 export class DataService
 {
     constructor(
         private http: HttpClient,
-        private factory: DataSetInfoFactory
+        private factory: DataSetFactory
     ) {  }
 
     getData(label: string) : Observable<any>
     {
-        const dataSet: any = this.factory.getBySource(label);
+        let dataSet: DataSet = this.factory.getByLabel(label);
 
-        return this.http.get(dataSet.path, { responseType: 'text' }).pipe(
-            map(response => dataSet.transformer.parse(response))
+        return this.http.get(dataSet.getRemoteUrl(), { responseType: 'text' }).pipe(
+            map(response => {
+                dataSet.setSource(response);
+
+                return dataSet;
+            })
         );
     }
 }

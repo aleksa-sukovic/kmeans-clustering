@@ -1,8 +1,37 @@
+import { Parser } from '../Parsers/Parser';
+
 export class DataSet
 {
-    constructor(private headers?: Array<String>, private data?: Array<Array<Number>>) {  }
 
-    getHeaders(): Array<String>
+    private data: Array<Array<Number>>;
+    private headers: Array<string>;
+    private parser: Parser;
+    private remoteUrl: string;
+
+    constructor(remoteUrl: string, parser: Parser, source?: string)
+    {
+        this.remoteUrl = remoteUrl;
+        this.parser    = parser;
+
+        if (source) {
+            this.setSource(source);
+
+            return;
+        }
+
+        this.data = [];
+        this.headers = [];
+    }
+
+    setSource(source: string)
+    {
+        let parsed = this.parser.parse(source);
+
+        this.data    = parsed.data;
+        this.headers = parsed.headers;
+    }
+
+    getHeaders(): Array<string>
     {
         return this.headers;
     }
@@ -12,13 +41,8 @@ export class DataSet
         return this.data;
     }
 
-    setHeaders(headers: Array<String>): void
+    getRemoteUrl(): string
     {
-        this.headers = headers;
-    }
-
-    setData(data: Array<Array<Number>>)
-    {
-        this.data = data;
+        return this.remoteUrl;
     }
 }

@@ -1,18 +1,16 @@
 import { DataSet } from '../Models/DataSet';
 
-export class Transformer
+export class Parser
 {
-    parse(response: string): DataSet
+    parse(response: string): { headers: Array<string>, data: Array<Array<Number>> }
     {
-        let dataSet: DataSet = new DataSet(
-            this.parseHeaders(response),
-            this.parseData(response)
-        );
-
-        return dataSet;
+        return {
+            headers: this.parseHeaders(response),
+            data   : this.parseData(response)
+        };
     }
 
-    private parseHeaders(source: string): Array<String>
+    private parseHeaders(source: string): Array<string>
     {
         let row = source.substr(0, source.indexOf('\n'));
 

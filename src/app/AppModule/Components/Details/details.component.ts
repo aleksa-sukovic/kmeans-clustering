@@ -1,5 +1,6 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { DataService } from '../../Services/Data/DataService';
+import { Constants } from '../../constants';
 
 @Component({
     selector: 'details-component',
@@ -9,12 +10,10 @@ import { DataService } from '../../Services/Data/DataService';
 export class DetailsComponent
 {
     constructor(
-        private dataService: DataService,
-        @Inject('DATA_WINE') private DATA_WINE: string,
-        @Inject('DATA_IRIS') private DATA_IRIS: string
+        private dataService: DataService
     )
     {
-        this.dataService.getData(DATA_WINE).subscribe(data => {
+        this.dataService.getData(Constants.availableDataSets()[0].label).subscribe(data => {
             console.log(data);
         });
      }
