@@ -1,15 +1,20 @@
 import { DataSetItem } from './DataSetItem';
 
+let clusterId = 1;
+
 export class Cluster
 {
 
     private centroid: DataSetItem;
+    private id: number;
 
     constructor(private items: DataSetItem[], centroid?: number)
     {
         if (!centroid) {
             this.centroid = DataSetItem.createFromItem(items[0]);
         }
+
+        this.id = clusterId++;
     }
 
     recalculateCentroid()
@@ -38,5 +43,10 @@ export class Cluster
     getCentroid(): DataSetItem
     {
         return this.centroid;
+    }
+
+    getId(): number
+    {
+        return this.id;
     }
 }
