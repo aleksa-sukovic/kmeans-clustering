@@ -15,6 +15,7 @@ import { AlgorithmConfigComponent } from './Components/AlgorithmConfig/algorithm
 import { AlgorithmFactory } from './Factories/AlgorithmFactory';
 import { AlgorithmPlaybackComponent } from './Components/AlgorithmPlayback/algorithm.playback.component';
 import { AlgorithmDisplayComponent } from './Components/AlgorithmDisplay/algorithm.display.component';
+import { DimensionReductionService } from './Services/DimensionReductionService';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -42,7 +43,8 @@ const routes: Routes = [
   providers: [
       DataService,
       DataSetFactory,
-      AlgorithmFactory
+      AlgorithmFactory,
+      DimensionReductionService
   ],
   bootstrap: [AppComponent]
 })
