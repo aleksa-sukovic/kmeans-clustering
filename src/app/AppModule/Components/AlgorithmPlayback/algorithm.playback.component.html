@@ -5,7 +5,7 @@
             <!-- Play Button -->
             <div class="col-sm-6 text-left">
                 <button type="button" class="btn btn-primary" [disabled]="!algorithm.hasNextIteration()" (click)="nextIteration()">
-                    {{ algorithm.currentIteration == 0 ? 'Initialize' : 'Next Iteration' }}
+                    {{ algorithm.currentIteration == 0 ? 'Start' : 'Next Iteration' }}
                 </button>
             </div>
 

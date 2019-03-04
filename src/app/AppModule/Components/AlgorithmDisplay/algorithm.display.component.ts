@@ -14,7 +14,7 @@ export class AlgorithmDisplayComponent implements OnInit
     @Input() algorithm: Algorithm;
 
     public width: number = 700;
-    public height: number = 500;
+    public height: number = 400;
     public scale: number = 2;
 
     private canvas: HTMLCanvasElement;
@@ -50,7 +50,7 @@ export class AlgorithmDisplayComponent implements OnInit
         this.context.fillStyle = this.getClusterColor(cluster);
         let coordinates        = this.getItemCoordinates(cluster, item);
 
-        this.context.fillRect(coordinates.x, coordinates.y, 10, 10);
+        this.context.fillRect(coordinates.x, coordinates.y, 5, 5);
     }
 
     protected getClusterColor(cluster: Cluster): string
@@ -94,7 +94,7 @@ export class AlgorithmDisplayComponent implements OnInit
 
     ngOnInit(): void
     {
-        this.canvas = <HTMLCanvasElement> document.getElementById('canvas');
+        this.canvas  = <HTMLCanvasElement> document.getElementById('canvas');
         this.context = this.canvas.getContext('2d');
     }
 }
