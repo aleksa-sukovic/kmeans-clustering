@@ -11,15 +11,27 @@ import { AlgorithmDisplayComponent } from '../AlgorithmDisplay/algorithm.display
 export class HomeComponent
 {
     protected algorithm: Algorithm;
+    protected displayConfiguration: any;
     @ViewChild(AlgorithmDisplayComponent) protected algorithmDisplay: AlgorithmDisplayComponent;
 
     constructor(private algorithmFactory: AlgorithmFactory) {  }
 
-    public onConfigurationSelected(configuration: any)
+    public onAlgorithmConfigurationSelected(configuration: any)
     {
+        if (this.algorithmDisplay) {
+            this.algorithmDisplay.clear();
+        }
+
         this.algorithmFactory.make(configuration).subscribe(algorithm => {
             this.algorithm = algorithm;
         });
+    }
+
+    public onDisplayConfigurationSelected(configuration: any)
+    {
+        this.algorithmDisplay.setConfiguration(configuration);
+
+        this.algorithmDisplay.draw();
     }
 
     public onNextIteration()

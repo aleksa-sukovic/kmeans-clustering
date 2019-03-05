@@ -19,16 +19,27 @@ export class AlgorithmDisplayComponent implements OnInit
 
     private canvas: HTMLCanvasElement;
     private context: CanvasRenderingContext2D;
+    private configuration: object;
 
-    constructor(private reductionService: DimensionReductionService) {  }
+    constructor(private reductionService: DimensionReductionService)
+    {
+        this.configuration = {
+            scale: 1
+        };
+    }
 
     public draw(): void
     {
-        this.context.clearRect(0, 0, this.width, this.height);
+        this.clear();
 
         this.algorithm.getClusters().forEach(cluster => {
             this.drawCluster(cluster);
         });
+    }
+
+    public clear(): void
+    {
+        this.context.clearRect(0, 0, this.width, this.height);
     }
 
     protected drawCluster(cluster: Cluster): void
@@ -90,6 +101,11 @@ export class AlgorithmDisplayComponent implements OnInit
                 y: Math.abs((this.height / 2 - reduced[1]) % (this.height / 2))
             }
         };
+    }
+
+    public setConfiguration(configuration: object): void
+    {
+        this.configuration = configuration;
     }
 
     ngOnInit(): void

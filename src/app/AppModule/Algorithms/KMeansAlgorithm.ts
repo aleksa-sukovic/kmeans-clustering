@@ -92,7 +92,7 @@ export class KMeansAlgorithm extends Algorithm
 
     public getClusters(): Cluster[]
     {
-        return this.clusters;
+        return this.clusters || [];
     }
 
 }

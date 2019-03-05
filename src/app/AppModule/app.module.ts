@@ -16,6 +16,7 @@ import { AlgorithmFactory } from './Factories/AlgorithmFactory';
 import { AlgorithmPlaybackComponent } from './Components/AlgorithmPlayback/algorithm.playback.component';
 import { AlgorithmDisplayComponent } from './Components/AlgorithmDisplay/algorithm.display.component';
 import { DimensionReductionService } from './Services/DimensionReductionService';
+import { AlgorithmDisplayConfigComponent } from './Components/AlgorithmDisplayConfig/algorithm.display.config.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -32,7 +33,8 @@ const routes: Routes = [
     SelectDataset,
     AlgorithmConfigComponent,
     AlgorithmPlaybackComponent,
-    AlgorithmDisplayComponent
+    AlgorithmDisplayComponent,
+    AlgorithmDisplayConfigComponent
   ],
   imports: [
     BrowserModule,
