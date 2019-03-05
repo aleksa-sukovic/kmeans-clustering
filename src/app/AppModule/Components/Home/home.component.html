@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4">
-                <algorithm-playback [algorithm]="algorithm" (onNextIteration)="onNextIteration()"></algorithm-playback>
+                <!-- <algorithm-playback [algorithm]="algorithm" (onNextIteration)="onNextIteration()"></algorithm-playback> -->
             </div>
         </div>
 
@@ -30,7 +30,13 @@
             </div>
         </div>
 
-        <div class="row m-0 pb-3">
+        <div class="row mr-0 ml-0">
+            <div class="col-sm-12">
+                <algorithm-playback [algorithm]="algorithm" (onNextIteration)="onNextIteration()"></algorithm-playback>
+            </div>
+        </div>
+
+        <div class="row ml-0 mr-0 pb-3">
             <div class="col-sm-12" *ngIf="algorithm">
                 <algorithm-display [algorithm]="algorithm"></algorithm-display>
             </div>
