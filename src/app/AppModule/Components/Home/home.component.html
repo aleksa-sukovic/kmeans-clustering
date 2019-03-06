@@ -1,7 +1,7 @@
 <div class="text-center background">
     <div class="algorithm-control">
 
-        <div class="row m-0">
+        <div class="row m-0 justify-content-between">
             <div class="col-sm-12 p-0 mb-3">
                 <div class="form-banner">
                     <h2>Data visualization</h2>
@@ -16,12 +16,12 @@
             </div>
         </div>
 
-        <div class="row ml-0 mr-0 pb-3">
-            <div class="col-sm-12" *ngIf="algorithm">
+        <div class="row ml-0 mr-0 pb-3 justify-content-center">
+            <div class="col-sm-12 col-md-8 col-lg-6 align-self-center" *ngIf="algorithm">
                 <algorithm-display [algorithm]="algorithm"></algorithm-display>
             </div>
             <div class="col-sm-12" *ngIf="!algorithm">
-                <div class="alert alert-warning ml-4 mr-4" role="alert" *ngIf="!algorithm">
+                <div class="alert alert-warning ml-3 mr-3" role="alert" *ngIf="!algorithm">
                     Initialize algorithm and perform iteration to visualize clusters.
                 </div>
             </div>

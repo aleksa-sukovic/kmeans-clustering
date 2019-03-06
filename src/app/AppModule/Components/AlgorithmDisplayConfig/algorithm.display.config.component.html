@@ -1,11 +1,15 @@
 <div>
     <form [formGroup]="configForm" (ngSubmit)="submit()" *ngIf="algorithm">
         <div class="form-group">
-            <label for="scale_range">Display Scale (<span>{{ configForm.get('scale').value }}</span>)</label>
-            <input formControlName="scale" type="range" class="form-control-range" id="scale_range" min="1" max="20" step="1">
+            <label for="centroids_scale">Centroids Scale (<span>{{ configForm.get('centroidsScale').value }}</span>)</label>
+            <input formControlName="centroidsScale" type="range" class="form-control-range" id="centroids_scale" min="1" max="20" step="1">
         </div>
-        <div class="form-group text-left mt-4">
-            <button type="submit" class="btn btn-primary">Apply Changes</button>
+        <div class="form-group">
+            <label for="cluster_items_scale">Cluster Items Scale (<span>{{ configForm.get('clusterItemsScale').value }}</span>)</label>
+            <input formControlName="clusterItemsScale" type="range" class="form-control-range" id="cluster_items_scale" min="1" max="20" step="1">
+        </div>
+        <div class="form-group text-left mt-5">
+            <button type="submit" class="btn btn-outline-primary">Apply Changes</button>
         </div>
     </form>
     <div class="alert alert-primary" *ngIf="!algorithm">

@@ -16,7 +16,8 @@ export class AlgorithmDisplayConfigComponent
     constructor()
     {
         this.configForm = new FormGroup({
-            scale: new FormControl(1)
+            centroidsScale: new FormControl(1),
+            clusterItemsScale: new FormControl(1)
         });
     }
 
