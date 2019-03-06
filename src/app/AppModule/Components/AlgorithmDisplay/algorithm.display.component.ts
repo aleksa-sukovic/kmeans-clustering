@@ -28,7 +28,9 @@ export class AlgorithmDisplayComponent implements OnInit
     {
         this.configuration = {
             centroidsScale: 1,
-            clusterItemsScale: 1
+            clusterItemsScale: 1,
+            clusterItemsVerticalScale: 0,
+            clusterItemsHorizontalScale: 0
         };
         this.colours = {};
     }
@@ -49,8 +51,8 @@ export class AlgorithmDisplayComponent implements OnInit
 
     protected drawCluster(cluster: Cluster): void
     {
-        if (!this.colours[cluster.getId()]) {
-            this.colours[cluster.getId()] = this.colorGenerator.generate()[0];
+        if (!this.colours[cluster.id]) {
+            this.colours[cluster.id] = this.colorGenerator.generate()[0];
         }
 
         for (let i = 0; i < cluster.getItems().length; i++) {
@@ -62,7 +64,7 @@ export class AlgorithmDisplayComponent implements OnInit
 
     protected drawItem(cluster: Cluster, item: DataSetItem, itemIndex: number): void
     {
-        this.context.fillStyle = this.colours[cluster.getId()];
+        this.context.fillStyle = this.colours[cluster.id];
         let coordinates        = this.getItemCoordinates(item, cluster, itemIndex);
 
         this.context.beginPath();
@@ -71,12 +73,16 @@ export class AlgorithmDisplayComponent implements OnInit
     }
 
     protected drawCentroid(cluster: Cluster) {
-        this.context.fillStyle = this.colours[cluster.getId()];
-        let coordinates = this.getClusterCoordinates(cluster.getCentroid(), cluster.getId());
+        this.context.fillStyle = this.colours[cluster.id];
+        let coordinates = this.getClusterCoordinates(cluster.centroid, cluster.id);
+
+        coordinates.x = coordinates.x - 50 > 0 ? coordinates.x - 50 : coordinates.x;
+        coordinates.y = coordinates.y - 50 > 0 ? coordinates.y - 50 : coordinates.y;
 
         this.context.fillRect(coordinates.x, coordinates.y, 15, 15);
 
         this.context.fillStyle = '#000000';
+        this.context.lineWidth = 2.5;
         this.context.strokeRect(coordinates.x, coordinates.y, 15, 15);
     }
 
@@ -95,17 +101,14 @@ export class AlgorithmDisplayComponent implements OnInit
     {
         let reduced = this.reductionService.reduceNumbers(item.getValues(), 2);
 
-        reduced[0] *= this.configuration.clusterItemsScale;
-        reduced[1] *= this.configuration.clusterItemsScale;
-
-        let centroidCoordinates = this.getClusterCoordinates(cluster.getCentroid(), cluster.getId());
+        let centroidCoordinates = this.getClusterCoordinates(cluster.centroid, cluster.id);
         let coordinates = this.positionGenerator.generatePositionFromBound(
-            reduced[0], reduced[1],
+            reduced[0] * this.configuration.clusterItemsScale, reduced[1] * this.configuration.clusterItemsScale,
             this.width, this.height,
             index, 1
         );
 
-        coordinates = this.positionGenerator.generateQuauterPosition(coordinates, index);
+        coordinates = this.positionGenerator.generateQuauterPosition(coordinates, index, this.configuration.clusterItemsHorizontalScale, this.configuration.clusterItemsVerticalScale);
 
         return {
             x: centroidCoordinates.x + coordinates.x % 100,

@@ -2,8 +2,9 @@ import { Cluster } from './Cluster';
 
 export class DataSetItem
 {
+    public clusterId: number;
+
     private values: number[];
-    private clusterId: number;
 
     constructor(values?: number[], clusterId?: number)
     {
@@ -13,7 +14,7 @@ export class DataSetItem
 
     distanceFromCluster(cluster: Cluster): number
     {
-        let centroid = cluster.getCentroid();
+        let centroid = cluster.centroid;
         let euclideanSum = 0;
 
         for (let valueIndex = 0; valueIndex < centroid.getValues().length; valueIndex++) {
@@ -29,16 +30,6 @@ export class DataSetItem
     getValues()
     {
         return this.values;
-    }
-
-    getClusterId(): number
-    {
-        return this.clusterId;
-    }
-
-    setClusterId(id: number): void
-    {
-        this.clusterId = id;
     }
 
     static createFromItem(item: DataSetItem): DataSetItem

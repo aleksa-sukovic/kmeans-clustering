@@ -25,7 +25,7 @@ export class KMeansAlgorithm extends Algorithm
         for (let i = 0; i < this.clusterCount; i++) {
             let itemsToAdd: DataSetItem[] = i == this.clusterCount - 1 ? sortedItems : sortedItems.splice(0, perCluster);
 
-            itemsToAdd.forEach(item => item.setClusterId(i));
+            itemsToAdd.forEach(item => item.clusterId = i);
 
             this.clusters.push(new Cluster(itemsToAdd));
         }
@@ -74,11 +74,11 @@ export class KMeansAlgorithm extends Algorithm
                 }
             }
 
-            if (clusterIndex != dataItem.getClusterId()) {
+            if (clusterIndex != dataItem.clusterId) {
                 hasChanges = true;
             }
 
-            dataItem.setClusterId(clusterIndex);
+            dataItem.clusterId = clusterIndex;
             this.clusters[clusterIndex].getItems().push(dataItem);
         });
 

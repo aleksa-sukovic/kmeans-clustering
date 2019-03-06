@@ -5,8 +5,8 @@ let clusterId = 1;
 export class Cluster
 {
 
-    private centroid: DataSetItem;
-    private id: number;
+    public id: number;
+    public centroid: DataSetItem;
 
     constructor(private items: DataSetItem[], centroid?: number)
     {
@@ -38,15 +38,5 @@ export class Cluster
     public clearItems(): void
     {
         this.items = [];
-    }
-
-    public getCentroid(): DataSetItem
-    {
-        return this.centroid;
-    }
-
-    getId(): number
-    {
-        return this.id;
     }
 }
