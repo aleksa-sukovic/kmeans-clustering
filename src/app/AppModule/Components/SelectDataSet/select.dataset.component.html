@@ -1,0 +1,10 @@
+<div class="form-group">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="dataset">Choose Dataset</label>
+        </div>
+        <select class="custom-select" id="dataset" (change)="onChange($event.target.value)">
+            <option *ngFor="let dataset of availableDataSets" value="{{dataset.label}}">{{ dataset.name }}</option>
+        </select>
+    </div>
+</div>

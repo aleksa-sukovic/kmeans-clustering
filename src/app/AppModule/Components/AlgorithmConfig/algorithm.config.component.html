@@ -1,0 +1,21 @@
+<form [formGroup]="controlForm" (ngSubmit)="initializeAlgorithm()">
+    <div class="form-group">
+        <label for="dataset">Dataset</label>
+        <div class="input-group mb-3">
+            <select formControlName="dataSetLabel" class="custom-select" id="dataset">
+                <option *ngFor="let dataset of availableDataSets" value="{{ dataset.label }}">{{ dataset.name }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="iterations-control">Maximum Iterations</label>
+        <input formControlName="maxIterations" type="number" class="form-control" id="iterations-control" aria-describedby="Maximum Iterations" min="5">
+    </div>
+    <div class="form-group">
+        <label for="cluster-count">Cluster Count</label>
+        <input formControlName="clusterCount" type="number" class="form-control" id="cluster-count" aria-describedby="Cluster Count" min="2">
+    </div>
+    <div class="form-group text-left mt-5 mb-5">
+        <button type="submit" class="btn btn-outline-dark mt-1">Initialize Algorithm</button>
+    </div>
+</form>

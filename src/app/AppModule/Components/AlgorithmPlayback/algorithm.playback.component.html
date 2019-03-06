@@ -1,0 +1,33 @@
+<div>
+    <div *ngIf="algorithm" class="mb-4">
+        <div class="row mr-0 ml-0 justify-content-between">
+
+            <!-- Play Button -->
+            <div class="col-sm-2 mb-3 pl-0 text-left">
+                <button type="button" class="btn btn-outline-dark" [disabled]="!algorithm.hasNextIteration()" (click)="nextIteration()">
+                   Iterate <span class="badge badge-warning">{{ algorithm.currentIteration }}</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- End message -->
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-6 col-lg-6" *ngIf="!algorithm.hasNextIteration()">
+
+                <!-- Clustering complete -->
+                <div class="alert alert-secondary mb-0" role="alert" *ngIf="algorithm.currentIteration == algorithm.maxIterations()">
+                    You have reached final iteration! Initialize new algorithm to play again.
+                    <span *ngIf="algorithm.currentIteration < algorithm.maxIterations()">Found {{ algorithm.getClusters().length }} clusters! Initialize new algorithm to play again.</span>
+                </div>
+
+                <!-- Maximum number of iterations reached -->
+                <div class="alert alert-success mb-0" role="alert" *ngIf="algorithm.currentIteration < algorithm.maxIterations()">
+                    Found {{ algorithm.getClusters().length }} clusters! Initialize new algorithm to play again.
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
