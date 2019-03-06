@@ -7,7 +7,7 @@ import { HomeComponent } from './Components/Home/home.component';
 import { DetailsComponent } from './Components/Details/details.component';
 import { NavigationComponent } from './Components/Navigation/navigation.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DataService } from './Services/Data/DataService';
+import { DataService } from './Services/DataService';
 import { DataSetFactory } from './Factories/DataSetFactory';
 import { SelectDataset } from './Components/SelectDataSet/select.dataset.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -17,6 +17,8 @@ import { AlgorithmPlaybackComponent } from './Components/AlgorithmPlayback/algor
 import { AlgorithmDisplayComponent } from './Components/AlgorithmDisplay/algorithm.display.component';
 import { DimensionReductionService } from './Services/DimensionReductionService';
 import { AlgorithmDisplayConfigComponent } from './Components/AlgorithmDisplayConfig/algorithm.display.config.component';
+import ColorGenerator from './Services/ColorGenerator';
+import PositionGenerator from './Services/PositionGenerator';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -46,7 +48,9 @@ const routes: Routes = [
       DataService,
       DataSetFactory,
       AlgorithmFactory,
-      DimensionReductionService
+      DimensionReductionService,
+      ColorGenerator,
+      PositionGenerator
   ],
   bootstrap: [AppComponent]
 })

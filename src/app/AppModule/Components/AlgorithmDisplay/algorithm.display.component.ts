@@ -3,6 +3,8 @@ import { Algorithm } from '../../Algorithms/Algorithm';
 import { Cluster } from '../../Models/Cluster';
 import { DataSetItem } from '../../Models/DataSetItem';
 import { DimensionReductionService } from '../../Services/DimensionReductionService';
+import ColorGenerator from '../../Services/ColorGenerator';
+import PositionGenerator from '../../Services/PositionGenerator';
 
 @Component({
     selector: 'algorithm-display',
@@ -19,22 +21,25 @@ export class AlgorithmDisplayComponent implements OnInit
 
     private canvas: HTMLCanvasElement;
     private context: CanvasRenderingContext2D;
-    private configuration: object;
+    private configuration: any;
+    private colours: any;
 
-    constructor(private reductionService: DimensionReductionService)
+    constructor(private reductionService: DimensionReductionService, private colorGenerator: ColorGenerator, private positionGenerator: PositionGenerator)
     {
         this.configuration = {
-            scale: 1
+            centroidsScale: 1,
+            clusterItemsScale: 1
         };
+        this.colours = {};
     }
 
     public draw(): void
     {
         this.clear();
 
-        this.algorithm.getClusters().forEach(cluster => {
-            this.drawCluster(cluster);
-        });
+        for (let i = 0; i < this.algorithm.getClusters().length; i++) {
+            this.drawCluster(this.algorithm.getClusters()[i]);
+        }
     }
 
     public clear(): void
@@ -44,68 +49,78 @@ export class AlgorithmDisplayComponent implements OnInit
 
     protected drawCluster(cluster: Cluster): void
     {
-        this.drawCentroid(cluster);
-
-        // cluster.getItems().forEach(dataItem => this.drawItem(cluster, dataItem));
-    }
-
-    protected drawCentroid(cluster: Cluster): void
-    {
-        this.context.fillStyle = '#ff0000';
-
-        this.drawItem(cluster, cluster.getCentroid());
-    }
-
-    protected drawItem(cluster: Cluster, item: DataSetItem): void
-    {
-        this.context.fillStyle = this.getClusterColor(cluster);
-        let coordinates        = this.getItemCoordinates(cluster, item);
-
-        this.context.fillRect(coordinates.x, coordinates.y, 5, 5);
-    }
-
-    protected getClusterColor(cluster: Cluster): string
-    {
-        switch(cluster.getId() % 4) {
-            case 0: return '#4286f4';
-            case 1: return '#ff56ff';
-            case 2: return '#ff3a3a';
-            case 3: return '#ffc339';
-            default: '';
+        if (!this.colours[cluster.getId()]) {
+            this.colours[cluster.getId()] = this.colorGenerator.generate()[0];
         }
+
+        for (let i = 0; i < cluster.getItems().length; i++) {
+            this.drawItem(cluster ,cluster.getItems()[i], i);
+        }
+
+        this.drawCentroid(cluster);
     }
 
-    protected getItemCoordinates(cluster: Cluster, item: DataSetItem): { x: number, y: number }
+    protected drawItem(cluster: Cluster, item: DataSetItem, itemIndex: number): void
+    {
+        this.context.fillStyle = this.colours[cluster.getId()];
+        let coordinates        = this.getItemCoordinates(item, cluster, itemIndex);
+
+        this.context.beginPath();
+        this.context.arc(coordinates.x, coordinates.y, 5, 0, 2 * Math.PI);
+        this.context.fill();
+    }
+
+    protected drawCentroid(cluster: Cluster) {
+        this.context.fillStyle = this.colours[cluster.getId()];
+        let coordinates = this.getClusterCoordinates(cluster.getCentroid(), cluster.getId());
+
+        this.context.fillRect(coordinates.x, coordinates.y, 15, 15);
+
+        this.context.fillStyle = '#000000';
+        this.context.strokeRect(coordinates.x, coordinates.y, 15, 15);
+    }
+
+    protected getClusterCoordinates(item: DataSetItem, index: number): { x: number, y: number }
     {
         let reduced = this.reductionService.reduceNumbers(item.getValues(), 2);
 
-        switch(cluster.getId() % 4) {
-            case 0: return {
-                x: Math.abs((this.width / 2 - reduced[0]) % (this.width / 2)),
-                y: Math.abs((this.height / 2 - reduced[1]) % (this.height / 2))
-            };
-            case 1: return {
-                x: this.width - Math.abs((this.width / 2 - reduced[0]) % (this.width / 2)),
-                y: Math.abs((this.height / 2 - reduced[1]) % (this.height / 2))
-            };
-            case 2: return {
-                x: Math.abs((this.width / 2 - reduced[0]) % (this.width / 2)),
-                y: this.height - Math.abs((this.height / 2 - reduced[1]) % (this.height / 2))
-            }
-            case 3: return {
-                x: this.width - Math.abs((this.width / 2 - reduced[0]) % (this.width / 2)),
-                y: this.height - Math.abs((this.height / 2 - reduced[1]) % (this.height / 2))
-            }
-            default: return {
-                x: Math.abs((this.width / 2 - reduced[0]) % (this.width / 2)),
-                y: Math.abs((this.height / 2 - reduced[1]) % (this.height / 2))
-            }
+        return this.positionGenerator.generatePositionFromBound(
+            reduced[0], reduced[1],
+            this.width, this.height,
+            index, this.configuration.centroidsScale
+        )
+    }
+
+    protected getItemCoordinates(item: DataSetItem, cluster: Cluster, index: number): { x: number, y: number }
+    {
+        let reduced = this.reductionService.reduceNumbers(item.getValues(), 2);
+
+        reduced[0] *= this.configuration.clusterItemsScale;
+        reduced[1] *= this.configuration.clusterItemsScale;
+
+        let centroidCoordinates = this.getClusterCoordinates(cluster.getCentroid(), cluster.getId());
+        let coordinates = this.positionGenerator.generatePositionFromBound(
+            reduced[0], reduced[1],
+            this.width, this.height,
+            index, 1
+        );
+
+        coordinates = this.positionGenerator.generateQuauterPosition(coordinates, index);
+
+        return {
+            x: centroidCoordinates.x + coordinates.x % 100,
+            y: centroidCoordinates.y + coordinates.y % 100
         };
     }
 
     public setConfiguration(configuration: object): void
     {
         this.configuration = configuration;
+    }
+
+    public resetColours(): void
+    {
+        this.colours = {};
     }
 
     ngOnInit(): void

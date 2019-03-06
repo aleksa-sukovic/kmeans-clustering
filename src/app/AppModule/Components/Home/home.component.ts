@@ -20,6 +20,7 @@ export class HomeComponent
     {
         if (this.algorithmDisplay) {
             this.algorithmDisplay.clear();
+            this.algorithmDisplay.resetColours();
         }
 
         this.algorithmFactory.make(configuration).subscribe(algorithm => {

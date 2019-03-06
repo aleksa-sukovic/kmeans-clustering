@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataService } from '../../Services/Data/DataService';
+import { DataService } from '../../Services/DataService';
 import { DataSet } from '../../Models/DataSet';
 
 @Component({

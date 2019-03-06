@@ -17,7 +17,7 @@ export class Cluster
         this.id = clusterId++;
     }
 
-    recalculateCentroid()
+    public recalculateCentroid()
     {
         for (let valueIndex = 0; valueIndex < this.items[0].getValues().length; valueIndex++) {
             this.centroid.getValues()[valueIndex] = 0;
@@ -30,17 +30,17 @@ export class Cluster
         }
     }
 
-    getItems(): DataSetItem[]
+    public getItems(): DataSetItem[]
     {
         return this.items;
     }
 
-    clearItems(): void
+    public clearItems(): void
     {
         this.items = [];
     }
 
-    getCentroid(): DataSetItem
+    public getCentroid(): DataSetItem
     {
         return this.centroid;
     }

@@ -1,4 +1,4 @@
-import { DataService } from '../Services/Data/DataService';
+import { DataService } from '../Services/DataService';
 import { Algorithm } from '../Algorithms/Algorithm';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

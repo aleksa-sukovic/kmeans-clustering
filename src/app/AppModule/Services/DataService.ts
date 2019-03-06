@@ -2,8 +2,8 @@ import { Observable } from 'rxjs';
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { DataSet } from '../../Models/DataSet';
-import { DataSetFactory } from '../../Factories/DataSetFactory';
+import { DataSet } from '../Models/DataSet';
+import { DataSetFactory } from '../Factories/DataSetFactory';
 
 @Injectable()
 export class DataService
