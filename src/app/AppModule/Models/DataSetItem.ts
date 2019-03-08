@@ -2,14 +2,14 @@ import { Cluster } from './Cluster';
 
 export class DataSetItem
 {
-    public clusterId: number;
+    public cluster: Cluster;
 
     private values: number[];
 
-    constructor(values?: number[], clusterId?: number)
+    constructor(values?: number[], cluster?: Cluster)
     {
         this.values = values || [];
-        this.clusterId = clusterId || -1;
+        this.cluster = cluster;
     }
 
     distanceFromCluster(cluster: Cluster): number
@@ -24,7 +24,7 @@ export class DataSetItem
             );
         }
 
-        return euclideanSum;
+        return Math.sqrt(euclideanSum);
     }
 
     getValues()

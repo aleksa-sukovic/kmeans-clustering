@@ -16,10 +16,10 @@ export class AlgorithmDisplayConfigComponent
     constructor()
     {
         this.configForm = new FormGroup({
-            centroidsScale             : new FormControl(0.7),
-            clusterItemsScale          : new FormControl(1),
-            clusterItemsVerticalScale  : new FormControl(0),
-            clusterItemsHorizontalScale: new FormControl(0)
+            xScale: new FormControl(30),
+            yScale: new FormControl(60),
+            xOffset: new FormControl(0),
+            yOffset: new FormControl(0),
         });
     }
 

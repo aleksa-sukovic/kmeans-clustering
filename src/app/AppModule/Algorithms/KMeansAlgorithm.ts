@@ -3,8 +3,7 @@ import { Cluster } from '../Models/Cluster';
 import { DataSet } from '../Models/DataSet';
 import { DataSetItem } from '../Models/DataSetItem';
 
-export class KMeansAlgorithm extends Algorithm
-{
+export class KMeansAlgorithm extends Algorithm {
 
     private clusters: Cluster[];
 
@@ -16,37 +15,23 @@ export class KMeansAlgorithm extends Algorithm
         super();
     }
 
-    protected initialize(): Cluster[]
-    {
+    protected initialize(): Cluster[] {
         this.clusters = [];
-        let sortedItems = this.sortDataSetItems();
-        const perCluster: number = Math.floor(sortedItems.length / this.clusterCount);
+        const perCluster: number = Math.floor(this.dataSet.getData().length / this.clusterCount);
 
         for (let i = 0; i < this.clusterCount; i++) {
-            let itemsToAdd: DataSetItem[] = i == this.clusterCount - 1 ? sortedItems : sortedItems.splice(0, perCluster);
-
-            itemsToAdd.forEach(item => item.clusterId = i);
-
-            this.clusters.push(new Cluster(itemsToAdd));
+            console.log('New ');
+            this.clusters.push(new Cluster([], new DataSetItem(
+                Array.from(this.dataSet.getData()[i * perCluster].getValues())
+            ), 'Cluster ' + i));
         }
+
+        this.reorderDataItems();
 
         return this.clusters;
     }
 
-    protected sortDataSetItems(): DataSetItem[]
-    {
-        this.dataSet.getData().sort((a, b) => {
-            const sumA = a.getValues().reduce((sum, item) => sum + item);
-            const sumB = b.getValues().reduce((sum, item) => sum + item);
-
-            return sumB - sumA;
-        });
-
-        return Array.from(this.dataSet.getData());
-    }
-
-    protected iterate(): Cluster[]
-    {
+    protected iterate(): Cluster[] {
         this.clusters.forEach(cluster => {
             cluster.recalculateCentroid();
             cluster.clearItems();
@@ -57,12 +42,11 @@ export class KMeansAlgorithm extends Algorithm
         return this.clusters;
     }
 
-    protected reorderDataItems(): void
-    {
+    protected reorderDataItems(): void {
         let hasChanges = false;
 
         this.dataSet.getData().forEach(dataItem => {
-            var clusterIndex = 0;
+            var clusterIndex = 0; // TODO fix
             var clusterIndexDistance = dataItem.distanceFromCluster(this.clusters[0]);
 
             for (let i = 1; i < this.clusterCount; i++) {
@@ -74,24 +58,22 @@ export class KMeansAlgorithm extends Algorithm
                 }
             }
 
-            if (clusterIndex != dataItem.clusterId) {
+            if (!dataItem.cluster || clusterIndex != (dataItem.cluster.id)) {
                 hasChanges = true;
             }
 
-            dataItem.clusterId = clusterIndex;
+            dataItem.cluster = this.clusters[clusterIndex];
             this.clusters[clusterIndex].getItems().push(dataItem);
         });
 
         this.complete = !hasChanges;
     }
 
-    public maxIterations(): number
-    {
+    public maxIterations(): number {
         return this.iterations;
     }
 
-    public getClusters(): Cluster[]
-    {
+    public getClusters(): Cluster[] {
         return this.clusters || [];
     }
 

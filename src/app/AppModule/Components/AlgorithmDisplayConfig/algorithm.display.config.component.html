@@ -1,20 +1,20 @@
 <div>
     <form [formGroup]="configForm" (ngSubmit)="submit()" *ngIf="algorithm">
         <div class="form-group mb-4">
-            <label for="centroids_scale">Centroids Spread (<span>{{ configForm.get('centroidsScale').value }}</span>)</label>
-            <input formControlName="centroidsScale" type="range" class="form-control-range" id="centroids_scale" min="0.1" max="5" step="0.1">
+            <label for="x_scale">Scale X(<span>{{ configForm.get('xScale').value }}</span>x)</label>
+            <input formControlName="xScale" type="range" class="form-control-range" id="x_scale" min="1" max="400" step="0.1">
         </div>
         <div class="form-group mb-4">
-            <label for="cluster_items_scale">Items Spread (<span>{{ configForm.get('clusterItemsScale').value }}</span>)</label>
-            <input formControlName="clusterItemsScale" type="range" class="form-control-range" id="cluster_items_scale" min="0.1" max="40" step="0.1">
+            <label for="y_scale">Scale Y(<span>{{ configForm.get('yScale').value }}</span>x)</label>
+            <input formControlName="yScale" type="range" class="form-control-range" id="y_scale" min="1" max="400" step="0.1">
         </div>
-        <div class="form-group mb-3">
-            <label for="cluster_items_vertical_scale">Items Vertical Scale (<span>{{ configForm.get('clusterItemsVerticalScale').value }}</span>)</label>
-            <input formControlName="clusterItemsVerticalScale" type="range" class="form-control-range" id="cluster_items_vertical_scale" min="0" max="30" step="1">
+        <div class="form-group mb-4">
+            <label for="x_offset">Offset X(<span>{{ configForm.get('xOffset').value }}</span>px)</label>
+            <input formControlName="xOffset" type="range" class="form-control-range" id="x_offset" min="-500" max="500" step="0.1">
         </div>
-        <div class="form-group">
-            <label for="cluster_items_horizontal_scale">Items Horizontal Scale (<span>{{ configForm.get('clusterItemsHorizontalScale').value }}</span>)</label>
-            <input formControlName="clusterItemsHorizontalScale" type="range" class="form-control-range" id="cluster_items_horizontal_scale" min="0" max="30" step="1">
+        <div class="form-group mb-4">
+            <label for="y_offset">Offset Y(<span>{{ configForm.get('yOffset').value }}</span>px)</label>
+            <input formControlName="yOffset" type="range" class="form-control-range" id="y_offset" min="-500" max="500" step="0.1">
         </div>
         <div class="form-group text-left mt-5">
             <button type="submit" class="btn btn-outline-dark">Apply Changes</button>
