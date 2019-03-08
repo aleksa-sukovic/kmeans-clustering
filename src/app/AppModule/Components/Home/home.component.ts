@@ -30,7 +30,7 @@ export class HomeComponent
 
     public onDisplayConfigurationSelected(configuration: any)
     {
-        this.algorithmDisplay.setConfiguration(configuration);
+        this.algorithmDisplay.configuration = configuration;
 
         this.algorithmDisplay.draw();
     }

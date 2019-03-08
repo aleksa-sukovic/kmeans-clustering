@@ -6,13 +6,13 @@ export class Cluster
 {
 
     public id: number;
+    public name: string;
     public centroid: DataSetItem;
 
-    constructor(private items: DataSetItem[], centroid?: number)
+    constructor(private items: DataSetItem[], centroid?: DataSetItem, name?: string)
     {
-        if (!centroid) {
-            this.centroid = DataSetItem.createFromItem(items[0]);
-        }
+        this.centroid = centroid;
+        this.name = name;
 
         this.id = clusterId++;
     }
@@ -27,6 +27,7 @@ export class Cluster
             });
 
             this.centroid.getValues()[valueIndex] /= this.items.length;
+            this.centroid.getValues()[valueIndex] = parseFloat(this.centroid.getValues()[valueIndex].toFixed(2));
         }
     }
 
