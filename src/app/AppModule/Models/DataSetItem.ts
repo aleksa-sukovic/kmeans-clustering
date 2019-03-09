@@ -3,13 +3,16 @@ import { Cluster } from './Cluster';
 export class DataSetItem
 {
     public cluster: Cluster;
+    public original: string[];
 
     private values: number[];
 
-    constructor(values?: number[], cluster?: Cluster)
+
+    constructor(values?: number[], cluster?: Cluster, original?: string[])
     {
         this.values = values || [];
-        this.cluster = cluster;
+        this.cluster = cluster || new Cluster([]);
+        this.original = original;
     }
 
     distanceFromCluster(cluster: Cluster): number
@@ -30,12 +33,5 @@ export class DataSetItem
     getValues()
     {
         return this.values;
-    }
-
-    static createFromItem(item: DataSetItem): DataSetItem
-    {
-        let dataSetItem = new DataSetItem(Array.from(item.getValues()));
-
-        return dataSetItem;
     }
 }
