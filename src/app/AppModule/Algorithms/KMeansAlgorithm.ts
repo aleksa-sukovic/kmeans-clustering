@@ -20,9 +20,8 @@ export class KMeansAlgorithm extends Algorithm {
         const perCluster: number = Math.floor(this.dataSet.getData().length / this.clusterCount);
 
         for (let i = 0; i < this.clusterCount; i++) {
-            console.log('New ');
             this.clusters.push(new Cluster([], new DataSetItem(
-                Array.from(this.dataSet.getData()[i * perCluster].getValues())
+                Array.from(this.dataSet.getData()[i].getValues())
             ), 'Cluster ' + i));
         }
 
@@ -46,27 +45,34 @@ export class KMeansAlgorithm extends Algorithm {
         let hasChanges = false;
 
         this.dataSet.getData().forEach(dataItem => {
-            var clusterIndex = 0; // TODO fix
-            var clusterIndexDistance = dataItem.distanceFromCluster(this.clusters[0]);
+            let closestCluster = this.getClosestCluster(dataItem);
 
-            for (let i = 1; i < this.clusterCount; i++) {
-                let currentClusterDistance = dataItem.distanceFromCluster(this.clusters[i]);
-
-                if (currentClusterDistance < clusterIndexDistance) {
-                    clusterIndex = i;
-                    clusterIndexDistance = currentClusterDistance;
-                }
-            }
-
-            if (!dataItem.cluster || clusterIndex != (dataItem.cluster.id)) {
+            if (closestCluster.id != dataItem.cluster.id) {
                 hasChanges = true;
             }
 
-            dataItem.cluster = this.clusters[clusterIndex];
-            this.clusters[clusterIndex].getItems().push(dataItem);
+            dataItem.cluster = closestCluster;
+            closestCluster.getItems().push(dataItem);
         });
 
         this.complete = !hasChanges;
+    }
+
+    private getClosestCluster(item: DataSetItem): Cluster
+    {
+        var closestIndex = 0;
+        var distance     = item.distanceFromCluster(this.clusters[0]);
+
+        for (let i = 1; i < this.clusterCount; i++) {
+            let currentDistance = item.distanceFromCluster(this.clusters[i]);
+
+            if (currentDistance <= distance) {
+                closestIndex = i;
+                distance = currentDistance;
+            }
+        }
+
+        return this.clusters[closestIndex];
     }
 
     public maxIterations(): number {
