@@ -17,26 +17,26 @@ export class KMeansAlgorithm extends Algorithm {
 
     protected initialize(): Cluster[] {
         this.clusters = [];
-        const perCluster: number = Math.floor(this.dataSet.getData().length / this.clusterCount);
 
         for (let i = 0; i < this.clusterCount; i++) {
-            this.clusters.push(new Cluster([], new DataSetItem(
-                Array.from(this.dataSet.getData()[i].getValues())
-            ), 'Cluster ' + i));
+            let values = Array.from(this.dataSet.getData()[i].getValues());
+
+            let cluster = new Cluster([], new DataSetItem(values), 'Cluster ' + i);
+
+            this.clusters.push(cluster);
         }
 
-        this.reorderDataItems();
+        this.iterate();
 
         return this.clusters;
     }
 
     protected iterate(): Cluster[] {
-        this.clusters.forEach(cluster => {
-            cluster.recalculateCentroid();
-            cluster.clearItems();
-        });
+        this.clusters.forEach(cluster => cluster.clearItems());
 
         this.reorderDataItems();
+
+        this.clusters.forEach(cluster => cluster.recalculateCentroid());
 
         return this.clusters;
     }
