@@ -11,7 +11,7 @@ export class Cluster
 
     constructor(private items: DataSetItem[], centroid?: DataSetItem, name?: string)
     {
-        this.centroid = centroid;
+        this.centroid = centroid || items[0];
         this.name = name;
 
         this.id = clusterId++;

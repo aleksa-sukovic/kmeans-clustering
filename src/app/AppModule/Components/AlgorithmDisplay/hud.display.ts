@@ -70,9 +70,9 @@ export default class HudDisplay
         const context = canvas.getContext('2d');
         const nameDimension = context.measureText(cluster.name);
 
-        context.fillStyle = '#008cff';
+        context.fillStyle = '#000000';
         context.font = 'bold 12px Arial';
 
-        context.fillText(cluster.name, x - 70 + (70 - nameDimension.width) / 2, y - 12);
+        context.fillText(cluster.name, x - 70 + (70 - nameDimension.width) / 2, y - 11);
     }
 }
